@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="OFF">
+
+    <Properties>
+        <Property name="dir_path">c:/var/log/apilog</Property>
+        <Property name="loglayout">Date:%d{yyyyMMddHHmmss.SSS Z}	Level:%p	RequestId:%X{reqid}	%m%n</Property>
+        <Property name="loglayout_console">%d{yyyy-MM-dd HH:mm:ss.SSS} [ %-5level ] %logger{10} - [%.-8X{reqid}] %m%n</Property>
+    </Properties>
+
+    <Appenders>
+        <!-- コンソール出力 -->
+        <Console name="stdout" target="SYSTEM_OUT">
+            <PatternLayout pattern="${loglayout_console}"/>
+        </Console>
+
+        <!-- ログ -->
+        <RollingFile name="rolling-api"
+                fileName="${dir_path}/api.log"
+                filePattern="${dir_path}/api.log-%d{yyyyMMdd}">
+            <PatternLayout pattern="${loglayout}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+        </RollingFile>
+
+    </Appenders>
+
+    <Loggers>
+        <Logger name="jp.co.allsmart.restbase" level="trace" additivity="false">
+            <AppenderRef ref="stdout" level="trace"/>
+            <AppenderRef ref="rolling-api" level="debug"/>
+        </Logger>
+        <Logger name="org.springframework" level="off">
+        </Logger>
+    </Loggers>
+
+</Configuration>

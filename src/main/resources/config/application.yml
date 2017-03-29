@@ -1,0 +1,28 @@
+### FW共通
+# Spring
+spring:
+# DB
+ datasource:
+  url: jdbc:mysql://localhost/sample
+  username: allsmart
+  password: asmt
+  driver-class-name: com.mysql.jdbc.Driver
+  tomcat:
+   initial-size: 64
+   max-active: 256
+   min-idle: 64
+   max-idle: 256
+   max-wait: 10000
+   test-on-borrow: true
+   test-while-idle: true
+   validation-query: "SELECT 0"
+   validation-query-timeout: 5
+   time-between-eviction-runs-millis: 60000
+
+mybatis:
+ configuration:
+  map-underscore-to-camel-case: true
+
+# Server
+server:
+ context-path: /api
